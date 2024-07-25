@@ -7,15 +7,14 @@ import Link from "next/link";
 const Header = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
-      <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+      <Link className="navbar-brand" href="/">
+        React-Bootstrap
+      </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Link className="nav-link" href="/youtube">
-            youtube
-          </Link>
-          <Link className="nav-link" href="/facebook">
-            facebook
+          <Link className="nav-link" href="/blogs">
+            Blogs
           </Link>
         </Nav>
       </Navbar.Collapse>

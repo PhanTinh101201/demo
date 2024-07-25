@@ -4,6 +4,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+import { mutate } from "swr";
+import Configs from "@/configs/domain.json";
 
 interface IProps {
   showModal: boolean;
@@ -21,7 +24,24 @@ function ModalAddNew(props: IProps) {
 
   const { register, handleSubmit, reset } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    fetch(`${Configs.API_URL}blogs`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res) {
+          toast.success("Save Success");
+          setShowModal(false);
+          mutate(`${Configs.API_URL}blogs`);
+        }
+      });
+  };
 
   return (
     <>
